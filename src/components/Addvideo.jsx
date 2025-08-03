@@ -14,21 +14,18 @@ function Addvideo({ addres }) {
   });
 
   const handleSubmit = async () => {
-    // console.log(video);
     const { title, imageUrl, watchUrl } = video;
     if (!title || !imageUrl || !watchUrl) {
       alert("Enter valid inputs");
     } else {
       const videoChar = watchUrl.split("v=")[1];
-      // console.log(videoChar);
       const embedUrl = `https://www.youtube.com/embed/${videoChar}?si=Ukqzx5VpEPI0sWcO`;
-      // console.log(embedUrl);
 
       video.watchUrl = embedUrl;
       const result = await addVideoApi(video);
-      console.log(result);
-      if (result.status == 201) {
-        alert("Video Added Successfully!!!");
+
+      if (result.status === 201) {
+        alert("Video Added Successfully!");
         addres(result);
 
         setVideo({
@@ -38,7 +35,7 @@ function Addvideo({ addres }) {
         });
         handleClose();
       } else {
-        alert("Video upload failed!!");
+        alert("Video upload failed!");
       }
     }
   };
@@ -48,8 +45,17 @@ function Addvideo({ addres }) {
 
   return (
     <>
-      <button className="btn btn-outline-light m-2" onClick={handleShow}>
-        {" "}
+      <button
+        className="btn btn-outline-light m-2 rounded-circle shadow d-flex align-items-center justify-content-center"
+        onClick={handleShow}
+        title="Add Video"
+        style={{
+          width: "45px",
+          height: "45px",
+          fontSize: "1.5rem",
+          padding: 0,
+        }}
+      >
         +
       </button>
 
@@ -59,43 +65,42 @@ function Addvideo({ addres }) {
         backdrop="static"
         keyboard={false}
       >
-        <Modal.Header closeButton>
-          <Modal.Title>Upload Video</Modal.Title>
+        <Modal.Header closeButton className="text-white">
+          <Modal.Title>Upload New Video</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <FloatingLabel controlId="title" label="Video Title" className="mb-2">
+        <Modal.Body className="">
+          <FloatingLabel controlId="title" label="Video Title" className="mb-3">
             <Form.Control
               type="text"
-              placeholder="title"
+              placeholder="Enter title"
+              value={video.title}
               onChange={(e) => setVideo({ ...video, title: e.target.value })}
             />
           </FloatingLabel>
-          <FloatingLabel
-            controlId="img"
-            label="Video Thumbnail URL"
-            className="mb-2"
-          >
+          <FloatingLabel controlId="img" label="Thumbnail URL" className="mb-3">
             <Form.Control
               type="text"
-              placeholder="thumbnail"
+              placeholder="Enter image URL"
+              value={video.imageUrl}
               onChange={(e) => setVideo({ ...video, imageUrl: e.target.value })}
             />
           </FloatingLabel>
           <FloatingLabel
             controlId="video"
-            label="Youtube Video URL"
-            className="mb-2"
+            label="YouTube Video URL"
+            className="mb-3"
           >
             <Form.Control
               type="text"
-              placeholder="Video"
+              placeholder="Enter YouTube URL"
+              value={video.watchUrl}
               onChange={(e) => setVideo({ ...video, watchUrl: e.target.value })}
             />
           </FloatingLabel>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer className="">
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            Cancel
           </Button>
           <Button variant="primary" onClick={handleSubmit}>
             Upload

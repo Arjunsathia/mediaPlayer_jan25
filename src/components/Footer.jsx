@@ -3,50 +3,73 @@ import { Link } from "react-router-dom";
 
 function Footer() {
   return (
-    <>
-      <div className="container-fluid py-3 px-5  bg-secondary">
-        <div className="row">
-          <div className="col">
-            <h3 className="text-center text-dark">Media player 2025</h3>
-            <p className="text-dark" style={{ textAlign: "justify" }}>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Consectetur commodi veritatis aperiam amet voluptas alias
-              doloribus animi sequi qui suscipit rem, necessitatibus dolorum
-              odit tenetur nam molestiae cupiditate ullam nostrum?
+    <footer className="text-light pt-5 pb-3 mt-5">
+      <hr />
+
+      <div className="container">
+        <div className="row g-4">
+          {/* About */}
+          <div className="col-md-5">
+            <h4 className="fw-bold mb-3">🎵 Media Player 2025</h4>
+            <p className="text-light-50" style={{ textAlign: "justify" }}>
+              A modern, sleek platform to watch, save, and manage your favorite
+              videos. Enjoy seamless experience with a fast, responsive and
+              user-friendly interface.
             </p>
           </div>
-          <div className="col-2">
-            <h3 className="text-center text-dark">Links</h3>
-            <div className="d-flex justify-content-around gap-2 flex-column text-center">
-              <Link to={"/"} className="text-dark">
-                Landing
-              </Link>
-              <Link to={"/log"} className="text-dark">
-                Login
-              </Link>
-              <Link to={"/reg"} className="text-dark">
-                Registration
-              </Link>
-            </div>
+
+          {/* Links */}
+          <div className="col-md-3">
+            <h5 className="fw-bold mb-3">Quick Links</h5>
+            <ul className="list-unstyled d-flex flex-column gap-2">
+              <li>
+                <Link
+                  to="/"
+                  className="text-light text-decoration-none hover-link"
+                >
+                  🏠 Landing
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/log"
+                  className="text-light text-decoration-none hover-link"
+                >
+                  🔐 Login
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/reg"
+                  className="text-light text-decoration-none hover-link"
+                >
+                  📝 Register
+                </Link>
+              </li>
+            </ul>
           </div>
-          <div className="col">
-            <h3 className="text-center text-dark">Feedback</h3>
+
+          {/* Feedback */}
+          <div className="col-md-4">
+            <h5 className="fw-bold mb-3">Feedback</h5>
             <textarea
-              name=""
-              placeholder="Enter your feedbacks"
-              className="form-control my-3 bg-dark text-light"
-              id=""
+              placeholder="Enter your feedback"
+              className="form-control bg-secondary border-0 mb-3"
+              rows={3}
             ></textarea>
-            <button className="btn btn-dark text-light">Send</button>
+            <button className="btn btn-outline-light w-100">Send</button>
           </div>
         </div>
-        <div>
-          <p className="text-center text-dark my-3">
-            Media player &copy; All copyrights reserved
+
+        <hr className="border-top border-light mt-4" />
+
+        <div className="text-center mt-3">
+          <p className="mb-0 text-muted">
+            &copy; 2025 Media Player. All rights reserved.
           </p>
         </div>
       </div>
-    </>
+    </footer>
   );
 }
 

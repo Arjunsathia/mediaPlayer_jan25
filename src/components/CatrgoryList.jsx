@@ -8,20 +8,21 @@ import VideoCard from "./VideoCard";
 
 function CatrgoryList({ addres }) {
   const [list, setList] = useState([]);
+
   useEffect(() => {
     getData();
   }, [addres]);
 
   const getData = async () => {
     const result = await getCategoryApi();
-    if (result.status == 200) {
+    if (result.status === 200) {
       setList(result.data);
-      console.log(result.data);
     }
   };
+
   const handleDelete = async (id) => {
     const result = await deleteCategoryApi(id);
-    if (result.status == 200) {
+    if (result.status === 200) {
       getData();
     } else {
       alert("Category Deletion Failed");
@@ -29,70 +30,60 @@ function CatrgoryList({ addres }) {
   };
 
   const handleDragOver = (e) => {
-    console.log("Drag over");
     e.preventDefault();
   };
 
   const handleDrop = async (e, cat) => {
-    console.log("Dropping");
     e.preventDefault();
     const videoData = JSON.parse(e.dataTransfer.getData("video"));
-    // console.log(videoData);
-    // console.log(cat);
-    const existing = cat.videos.find((item) => item.id == videoData.id);
+    const existing = cat.videos.find((item) => item.id === videoData.id);
     if (existing) {
       alert("Video already added to category");
     } else {
       cat.videos.push(videoData);
-      console.log(cat);
       const result = await addVideoToCategoryApi(cat.id, cat);
-      console.log(result);
-      if (result.status == 200) {
+      if (result.status === 200) {
         getData();
       } else {
-        alert("Video added failed");
+        alert("Video add failed");
       }
     }
   };
 
   return (
-    <>
-      <div className="border border-2 my-2">
-        {list.length > 0 ? (
-          <>
-            {list.map((item) => (
-              <div className="m-2 border-info border ">
-                <div
-                  className="p-2 position-relative d-flex justify-content-between align-items-center"
-                  onDragOver={(e) => handleDragOver(e)}
-                  onDrop={(e) => handleDrop(e, item)}
-                >
-                  <h3 className="m-0">{item.name}</h3>
-
-                  <button
-                    onClick={() => handleDelete(item.id)}
-                    className="btn position-absolute end-0 me-3"
-                  >
-                    <i className="fa-solid fa-trash"></i>
-                  </button>
-                </div>
-                <div>
-                  {item.videos.length > 0 && (
-                    <>
-                      {item.videos?.map((video) => (
-                        <VideoCard vid={video} delStatus={true}/>
-                      ))}
-                    </>
-                  )}
-                </div>
-              </div>
-            ))}
-          </>
-        ) : (
-          <h2 className="text-center text-warning">No Category added </h2>
-        )}
-      </div>
-    </>
+    <div className="my-3">
+      {list.length > 0 ? (
+        list.map((item) => (
+          <div
+            key={item.id}
+            className="border border-2 border-info rounded mb-3 shadow-sm"
+            onDragOver={handleDragOver}
+            onDrop={(e) => handleDrop(e, item)}
+          >
+            <div className="p-3 bg-info bg-opacity-25 d-flex justify-content-between align-items-center position-relative">
+              <h5 className="m-0 fw-bold">{item.name}</h5>
+              <button
+                onClick={() => handleDelete(item.id)}
+                className="btn btn-outline-danger btn-sm"
+              >
+                <i className="fa-solid fa-trash"></i>
+              </button>
+            </div>
+            <div className="p-3">
+              {item.videos.length > 0 ? (
+                item.videos.map((video) => (
+                  <VideoCard key={video.id} vid={video} delStatus={true} />
+                ))
+              ) : (
+                <p className="text-muted">No videos in this category</p>
+              )}
+            </div>
+          </div>
+        ))
+      ) : (
+        <h4 className="text-center text-warning mt-4">No Categories Added</h4>
+      )}
+    </div>
   );
 }
 

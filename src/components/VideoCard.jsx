@@ -14,48 +14,55 @@ function VideoCard({ vid, delres, delStatus }) {
     const now = new Date();
     const currentDataTime = now.toLocaleString();
     const data = { videoId: id, title, watchUrl, imageUrl, currentDataTime };
-    const result = await addHistoryApi(data);
-    console.log(result);
+    await addHistoryApi(data);
   };
 
   const handleDelete = async () => {
     const result = await deleteVideo(vid?.id);
-    console.log(result);
     if (result.status === 200) {
-      alert("Video Deleted Successfully!!!");
+      alert("✅ Video deleted successfully.");
       delres(result);
     } else {
-      alert("Video Deletion failed!!");
+      alert("❌ Failed to delete video.");
     }
   };
 
   const handleDrag = (e) => {
-    console.log("Dragging");
-    console.log(vid);
     e.dataTransfer.setData("video", JSON.stringify(vid));
   };
 
   return (
     <>
       <Card
-        style={{ maxWidth: "18rem" }}
-        className="my-2"
+        style={{ width: "280px", color: "#f8f9fa" }}
+        className="border-0 rounded-3 shadow-sm"
         draggable
-        onDragStart={(e) => handleDrag(e)}
+        onDragStart={handleDrag}
       >
         <Card.Img
           variant="top"
-          style={{ cursor: "pointer" }}
           onClick={handleShow}
           src={vid.imageUrl}
+          alt={vid.title}
+          style={{
+            cursor: "pointer",
+            borderTopLeftRadius: "0.75rem",
+            borderTopRightRadius: "0.75rem",
+            height: "160px",
+            objectFit: "cover",
+          }}
         />
         <Card.Body>
-          <div className="d-flex justify-content-between">
-            <Card.Title className="text-center">{vid.title}</Card.Title>
+          <div className="d-flex justify-content-between align-items-center">
+            <Card.Title className="fs-6 text-light">{vid.title}</Card.Title>
             {!delStatus && (
-              <button className="btn" onClick={handleDelete}>
+              <Button
+                variant="outline-danger"
+                size="sm"
+                onClick={handleDelete}
+              >
                 <i className="fa-solid fa-trash"></i>
-              </button>
+              </Button>
             )}
           </div>
         </Card.Body>
@@ -66,17 +73,18 @@ function VideoCard({ vid, delres, delStatus }) {
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
+        centered
+        size="lg"
       >
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className=" text-light">
           <Modal.Title>{vid.title}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="p-0">
           <iframe
             width="100%"
-            height="315"
+            height="400"
             src={`${vid.watchUrl}&autoplay=1`}
             title="YouTube video player"
-            frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen
           ></iframe>

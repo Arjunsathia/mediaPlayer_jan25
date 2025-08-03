@@ -4,16 +4,16 @@ import Navbar from "react-bootstrap/Navbar";
 
 function Header() {
   return (
-    <>
-      <Navbar className="bg-primary bg-opacity-25">
-        <Container>
-          <Navbar.Brand href="#home">
-            <i className="fa-solid fa-photo-film text-white"></i>
-            <span className="text-secondary"> Media Player</span>
+    <header>
+      <Navbar variant="dark" className="shadow-sm py-3">
+        <Container className="d-flex justify-content-between align-items-center">
+          <Navbar.Brand href="/">
+            <i className="fa-solid fa-photo-film me-2 fa-2xl"></i>
+            <span className="fw-bold text-light">Media Player</span>
           </Navbar.Brand>
         </Container>
       </Navbar>
-    </>
+    </header>
   );
 }
 

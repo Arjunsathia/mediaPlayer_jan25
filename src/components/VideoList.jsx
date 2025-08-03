@@ -12,25 +12,24 @@ function VideoList({ add }) {
 
   const getData = async () => {
     const result = await getVideosApi();
-    console.log(result.data);
-    if (result.status == 200) {
+    if (result.status === 200) {
       setVideo(result.data);
     }
   };
+
   return (
-    <>
-      <div className="border border-dark border-1 p-2 mb-4">
-        {video.length > 0 ? (
-          <div className="d-flex flex-wrap justify-content-around">
-            {video.map((item) => (
-              <VideoCard vid={item} delres={setDeleteResponse} />
-            ))}
-          </div>
-        ) : (
-          <h2 className="text-center text-warning">No video added yet</h2>
-        )}
-      </div>
-    </>
+    <div className="p-4 rounded shadow-sm">
+      <h3 className="text-light mb-4 text-center">📺 Video Library</h3>
+      {video.length > 0 ? (
+        <div className="d-flex flex-wrap justify-content-center gap-4">
+          {video.map((item) => (
+            <VideoCard key={item.id} vid={item} delres={setDeleteResponse} />
+          ))}
+        </div>
+      ) : (
+        <h5 className="text-center text-warning mt-4">No videos added yet.</h5>
+      )}
+    </div>
   );
 }
 

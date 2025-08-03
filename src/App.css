@@ -1,0 +1,71 @@
+/* src/pages/Landing.css */
+
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+.hover-link:hover {
+  text-decoration: underline;
+  color: #0dcaf0 !important; /* Bootstrap info color */
+}
+
+.nav-link {
+  color: #bbb;
+  transition: 0.3s;
+}
+.nav-link:hover,
+.nav-link.active {
+  color: #0dcaf0; /* Bootstrap info color */
+  text-decoration: underline;
+}
+
+.add-category-btn:hover {
+  background-color: #0d6efd;
+  color: white;
+}
+
+/* CategoryList.css */
+.category-box {
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.category-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Inside App.css or History.module.css */
+
+table img {
+  object-fit: cover;
+  border: 1px solid #ccc;
+}
+
+thead th {
+  white-space: nowrap;
+}
+table {
+  background-color: transparent !important;
+  color: white; /* Optional: for dark background */
+}
+
+thead, tbody, th, td, tr {
+  background-color: transparent !important;
+}
+
+a {
+  color: #0dcaf0; /* Light blue link */
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
